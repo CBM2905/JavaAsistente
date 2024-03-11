@@ -78,6 +78,7 @@ public class ControladorRegistro {
                     System.out.println(ced + " : " + nam);
                     if (model.InsertOnUser(ced, nam) == 0) {
                         // Llamar vista para mostrar lo que se debe realizar
+                        registroVista.mostrarAlerta("Error en datos");
                     } else {
                         model.setSesion(fechaAhora());
                         model.setCedula(ced);
@@ -93,13 +94,14 @@ public class ControladorRegistro {
                     }
                 } catch (NumberFormatException nfe) {
                     System.out.println("Datos Dañados");
+                    registroVista.mostrarAlerta("Error en datos");
                 }
             }
         });
         registroVista.jButton6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try{
                 String nam = (String) registroVista.jTextField2.getText();
                 int ced = Integer.parseInt(registroVista.jTextField4.getText());
                 model.setSesion(fechaAhora());
@@ -116,7 +118,12 @@ public class ControladorRegistro {
                         necesidadVista.show(true);
                     }
                 } else {
+                    registroVista.mostrarAlerta("Error en datos");
                     // llamar vista
+                }
+                }
+                catch(NumberFormatException nfe){
+                   registroVista.mostrarAlerta("Error en datos"); 
                 }
             }
         });
